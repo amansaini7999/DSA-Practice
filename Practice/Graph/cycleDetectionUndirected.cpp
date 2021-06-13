@@ -12,7 +12,8 @@ bool isCyclic(vector<int> adj[], int s, int visited[], int parent){
 
     for(auto itr: adj[s]){
         if(!visited[itr])
-            isCyclic(adj, itr, visited, s);
+            if(isCyclic(adj, itr, visited, s))
+                return true;
 
         else if(itr!=parent)
             return true;
