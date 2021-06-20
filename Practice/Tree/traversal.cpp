@@ -42,6 +42,59 @@ void postorder(node* head){
     cout<<head->data<<" ";
 }
 
+void levelTraversal(node* head){
+    queue<node*> q;
+    q.push(head);
+
+    while(!q.empty()){
+        node* temp = q.front();
+        q.pop();
+
+        cout<<temp->data<<" ";
+        if(temp->left!=NULL)
+            q.push(temp->left);
+
+        if(temp->right!=NULL)
+            q.push(temp->right);
+    }
+}
+
+void spiral(node* head){
+    if(head==NULL)
+        return;
+
+    stack<node*> s1;
+    stack<node*> s2;
+
+    s1.push(head);
+
+    while(!s1.empty() || !s2.empty()){
+        while(!s1.empty()){
+            node* temp = s1.top();
+            cout<<temp->data<<" ";
+            s1.pop();
+
+            if(temp->right)
+                s2.push(temp->right);
+
+            if(temp->left)
+                s2.push(temp->left);
+        }
+
+        while(!s2.empty()){
+            node* temp = s2.top();
+            s2.pop();
+            cout<<temp->data<<" ";
+
+            if(temp->left)
+                s1.push(temp->left);
+
+            if(temp->right)
+                s1.push(temp->right);
+        }
+    }
+}
+
 int main(){
     struct node* head=NULL;
 
@@ -59,6 +112,12 @@ int main(){
 
     cout<<"\nPostorder:\n";
     postorder(head);
+
+    cout<<"\nLevel Traversal:\n";
+    levelTraversal(head);
+
+    cout<<"\nSpiral:\n";
+    spiral(head);
 
     return 0;
 }
