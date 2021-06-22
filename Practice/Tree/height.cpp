@@ -26,6 +26,19 @@ int height(node* root){
     return max(lheight, rheight)+1;
 }
 
+int diameter(node* root){
+    if(root==NULL)
+        return 0;
+
+    int ldiameter = diameter(root->left);
+    int rdiameter = diameter(root->right);
+
+    int lheight = height(root->left);
+    int rheight = height(root->right);
+
+    return max(max(ldiameter, rdiameter), lheight+rheight+1);
+}
+
 int main(){
     struct node* root;
     root = insertNode(12);  
@@ -34,6 +47,8 @@ int main(){
     root->left->left = insertNode(90);
     root->left->right = insertNode(92);
 
-    cout<<height(root)-1<<"\n";
+    cout<<"Height: "<<height(root)<<"\n";
+    cout<<"Diameter: "<<diameter(root)<<"\n";
+
     return 0;
 }
